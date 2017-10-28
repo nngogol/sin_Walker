@@ -9,13 +9,13 @@ function setup() {
 function draw() {
 	background(151)
 
-	for (let n = 0; n < walks.length; n++) {
-		walks[n].move();
-		walks[n].render();
-		
+	for (let n = walks.length-1; n < 0 ; n--) {
+		if(walks[n].wannaDie())
+			walks[n].slice(n,1)
+		else
+			walks[n].move();
 	}
 
-	walks.map(x => x.move())
 	walks.map(x => x.render())
 }
 
@@ -41,6 +41,10 @@ class Walker{
 		
 		this.r = 0
 		this.theta = 0
+	}
+
+	wannaDie(){
+		return this.frame > 2000 ? true : false
 	}
 
 	renderTrail() {
@@ -83,6 +87,14 @@ class Walker{
 		this.pos.y += sin(this.frame*.3)
 	}
 
+	renderWalker(){
+		stroke(255)
+		fill(255,40,20)
+
+		ellipse(this.pos.x, this.pos.y, 16, 16);
+		
+	}
+
 	render(){
 		push()
 		translate(this.initPos.x, this.initPos.y)
@@ -94,7 +106,8 @@ class Walker{
 		// let yy = this.r * sin(this.theta)
 		// ellipse(xx, yy, 16, 16);
 		this.renderTrail()
-		ellipse(this.pos.x, this.pos.y, 16, 16);
+		this.renderWalker()
+
 
 
 		pop()
