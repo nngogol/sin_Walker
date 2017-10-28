@@ -34,17 +34,52 @@ class Walker{
 		this.speed = 2*0.1
 		this.angle = angle
 		this.frame = 0
+
+		this.trailLenght = 15;
+		this.history = [];
+		
 		
 		this.r = 0
 		this.theta = 0
 	}
 
+	renderTrail() {
+		
+		
+		let sizeEllipse = 14;
+		for(let i = this.history.length-1; i >= 0; i--){
+			
+				ellipse(this.history[i].x,
+					this.history[i].y,
+					sizeEllipse,
+					sizeEllipse);
+
+				sizeEllipse -= 0.3;
+		}
+	}
+
+	trailAdd(){
+		
+		// done
+		// добавить
+		this.history.push(this.pos.copy());
+		
+		// done
+		// удалить лишнее
+		if(this.history.length > this.trailLenght){
+			this.history.splice(0,1);
+		}
+		
+	}
+
 	move(){
 		// this.r += this.speed
 		// this.theta = sin(frameCount)
+		this.trailAdd()
+
 		this.frame += 1
 		this.pos.x += this.speed
-		this.pos.y += sin(this.frame*.03)
+		this.pos.y += sin(this.frame*.3)
 	}
 
 	render(){
@@ -57,7 +92,10 @@ class Walker{
 		// let xx = this.r * cos(this.theta)
 		// let yy = this.r * sin(this.theta)
 		// ellipse(xx, yy, 16, 16);
+		this.renderTrail()
 		ellipse(this.pos.x, this.pos.y, 16, 16);
+
+
 		pop()
 	}
 }
