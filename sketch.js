@@ -30,8 +30,9 @@ function mouseClicked(){
 class Walker{
 	constructor(x = mouseX, y = mouseY, angle = random(0,360)){
 		this.pos = createVector(0,0)
-		this.speed = random(1,3)*0.1
+		this.speed = 2*0.1
 		this.angle = angle
+		this.frame = 0
 		
 		this.r = 0
 		this.theta = 0
@@ -40,8 +41,9 @@ class Walker{
 	move(){
 		// this.r += this.speed
 		// this.theta = sin(frameCount)
+		this.frame += 1
 		this.pos.x += this.speed
-		this.pos.y += sin(frameCount*.1)
+		this.pos.y += sin(this.frame*.03)
 	}
 
 	render(){
