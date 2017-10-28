@@ -24,12 +24,13 @@ function mousePressed(){
 }
 
 function mouseClicked(){
-	walks.push(new Walker(0, 0))
+	walks.push(new Walker(mouseX, mouseY))
 }
 
 class Walker{
-	constructor(x = mouseX, y = mouseY, angle = random(0,360)){
-		this.pos = createVector(0,0)
+	constructor(x = 200, y = 200, angle = random(0,360)){
+		this.initPos = createVector(x, y);
+		this.pos = createVector(0, 0)
 		this.speed = 2*0.1
 		this.angle = angle
 		this.frame = 0
@@ -48,7 +49,8 @@ class Walker{
 
 	render(){
 		push()
-		translate(200,200)
+		translate(this.initPos.x, this.initPos.y)
+		rotate(radians(this.angle))
 		stroke(255)
 		noFill()
 
