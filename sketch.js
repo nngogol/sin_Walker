@@ -31,7 +31,7 @@ class Walker{
 	constructor(x = 200, y = 200, angle = random(0,360)){
 		this.initPos = createVector(x, y);
 		this.pos = createVector(0, 0)
-		this.speed = 2*0.1
+		this.speed = 2*0.5
 		this.angle = angle
 		this.frame = 0
 
@@ -45,7 +45,8 @@ class Walker{
 
 	renderTrail() {
 		
-		
+		stroke(0,255,0)
+		fill(0,60,60)
 		let sizeEllipse = 14;
 		for(let i = this.history.length-1; i >= 0; i--){
 			
