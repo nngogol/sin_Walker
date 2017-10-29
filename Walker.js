@@ -20,7 +20,7 @@ class Walker{
 		this.strokeWidth = strokeWidth
 		this.fill_walker = fill_walker_
 
-		this.trailLenght = 5;
+		this.trailLenght = 15;
 		this.history = [];
 		
 		
@@ -69,10 +69,16 @@ class Walker{
 		stroke(0,255,0)
 		fill(0,60,60)
 
-		let sizeEllipse = this.radius;
 		for(let i = this.history.length-1; i >= 0; i--){
-				ellipse(this.history[i].x,this.history[i].y, sizeEllipse, sizeEllipse);
-				sizeEllipse -= 0.3;
+
+				let radius_for_trail = map(i, this.trailLenght, 0, 20, 1)
+				ellipse(
+					this.history[i].x,
+					this.history[i].y,
+					radius_for_trail,
+					radius_for_trail
+				);
+				
 		}
 	}
 
