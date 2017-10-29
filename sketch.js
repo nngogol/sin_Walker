@@ -23,6 +23,8 @@ let endPos;
 	var radiusMin = 5;
 	var radiusMax = 50;
 	var radiusStep = 1;
+
+	var enableRandomWalkerSpawn = false
 // END gui params
 
 // gui guy
@@ -31,12 +33,12 @@ var gui;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	gui = createGui()
-	gui.addGlobals('ang', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
+	gui.addGlobals('ang', 'enableRandomWalkerSpawn', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
 }
 
 function draw() {
 	background(151)
-	
+	if(enableRandomWalkerSpawn)
 	addingWalkers()
 
 	// deleting old walkers
@@ -56,14 +58,17 @@ function draw() {
 ////////////////////////////////
 
 function mousePressed(){
-	// startPos = createVector(mouseX, mouseY)
+	// GET start!
+	startPos = createVector(mouseX, mouseY)
 }
 
 function mouseClicked(){
-	// endPos = createVector(mouseX, mouseY)
-	// let vect = p5.Vector.sub(endPos, startPos)
-	// let n = p5.Vector.angleBetween(createVector(0,1),vect)
-	// console.log(degrees(n))
+	// GET end!
+	endPos = createVector(mouseX, mouseY)
+
+	// get proper angle
+	let ang = atan2(endPos.y - startPos.y, endPos.x - startPos.x)
+	// and create Walker with this angle
 	walks.push(new Walker(mouseX, mouseY, ang, radius, strokeColor))
 }
 

@@ -46,7 +46,7 @@ class Walker{
 		push()
 
 		translate(this.initPos.x, this.initPos.y)
-		rotate(radians(this.angle))
+		rotate(this.angle)
 
 		// let xx = this.r * cos(this.theta)
 		// let yy = this.r * sin(this.theta)
