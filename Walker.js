@@ -1,13 +1,26 @@
 class Walker{
 
-	constructor(x = 200, y = 200, angle = random(0,360)){
+	constructor(x = 200, y = 200,
+		angle = 1,
+		radius = 5,
+		stroke_ = color(255,255,255),
+		strokeWidth = 1,
+		fill_walker_ = (255,40,20)
+	
+	){
+
+
 		this.initPos = createVector(x, y);
 		this.pos = createVector(0, 0)
 		this.speed = 2*0.5
 		this.angle = angle
 		this.frame = 0
+		this.stroke_Walker = stroke_
+		this.radius = radius
+		this.strokeWidth = strokeWidth
+		this.fill_walker = fill_walker_
 
-		this.trailLenght = 15;
+		this.trailLenght = 5;
 		this.history = [];
 		
 		
@@ -35,9 +48,6 @@ class Walker{
 		translate(this.initPos.x, this.initPos.y)
 		rotate(radians(this.angle))
 
-		stroke(255)
-		noFill()
-
 		// let xx = this.r * cos(this.theta)
 		// let yy = this.r * sin(this.theta)
 		// ellipse(xx, yy, 16, 16);
@@ -48,17 +58,18 @@ class Walker{
 	}
 
 	renderWalker(){
-		stroke(255)
-		fill(255,40,20)
+		stroke(this.stroke_Walker)
+		strokeWeight(this.strokeWidth)
+		fill(this.fill_walker)
 		// text(this.frame,40,40)
-		ellipse(this.pos.x, this.pos.y, 16, 16);
+		ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
 	}
 
 	renderTrail() {
 		stroke(0,255,0)
 		fill(0,60,60)
 
-		let sizeEllipse = 14;
+		let sizeEllipse = this.radius;
 		for(let i = this.history.length-1; i >= 0; i--){
 				ellipse(this.history[i].x,this.history[i].y, sizeEllipse, sizeEllipse);
 				sizeEllipse -= 0.3;
