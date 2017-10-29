@@ -81,7 +81,10 @@ function addingWalkers() {
 		}
 	
 		//drawing center point
-		let cc = [sin(frameCount*.05)*100+100 , cos(frameCount*.04)*120+900 , tan(frameCount*.04)*120+900]
+		let cc = [
+			floor(sin(frameCount*.05)      *100+100),
+			floor(cos(frameCount*.04)      *20 +100),
+			floor(sin((frameCount+150)*.04)*80 +130)]
 		fill(cc[0], cc[1], cc[2])
 		ellipse(width/2, height/2, width/16, width/16)
 	}
