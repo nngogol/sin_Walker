@@ -1,6 +1,6 @@
 class Walker{
 
-	constructor(x = 200, y = 200, trailLenght = 5, scaleSize = 5,
+	constructor(x = 200, y = 200, trailLenght = 5, scaleSize = 5, trailSpace = 2,
 		angle = 1,
 		radius = 5,
 		stroke_ = color(255,255,255),
@@ -23,6 +23,9 @@ class Walker{
 		this.trailLenght = trailLenght;
 		this.scaleSize = scaleSize;
 		this.history = [];
+
+		this.trailSpace = trailSpace;
+		this.trailCount = 0
 		
 		
 		this.r = 0
@@ -36,7 +39,12 @@ class Walker{
 	move(){
 		// this.r += this.speed
 		// this.theta = sin(frameCount)
-		this.trailAdd()
+		this.trailCount += 1
+
+		if (this.trailCount == this.trailSpace){
+			this.trailAdd()
+			this.trailCount = 0
+		}
 
 		this.frame += 1
 		this.pos.x += this.speed
