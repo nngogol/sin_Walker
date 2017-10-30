@@ -1,9 +1,14 @@
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer player;
+
 ArrayList<Walker> walks;
 PVector startPos;
 PVector endPos;
 
 int ang = 5;
-int adding_walker_Speed = 15;
+int adding_walker_Speed = 160;
 
 boolean enableRandomWalkerSpawn = true;
 
@@ -13,6 +18,8 @@ void settings() {
 
 void setup(){
   walks = new ArrayList<Walker>();
+  minim = new Minim(this);
+  player = minim.loadFile("ILLUMINATI_2.mp3");
 }
 
 void draw(){
@@ -42,6 +49,17 @@ void mousePressed(){
 	startPos = new PVector(mouseX, mouseY);
 }
 
+void playSound__(){
+  if ( !player.isPlaying() )
+      {
+        player.play();
+      }else{
+        player.pause();
+        player.rewind();
+        player.play();
+      }
+}
+
 void mouseReleased(){
 	// GET end!
 	endPos = new PVector(mouseX, mouseY);
@@ -64,6 +82,8 @@ void mouseReleased(){
       color(180,255,255)   // fill_walker_
     )
   );
+  
+  playSound__();
 	
 }
 
@@ -72,7 +92,7 @@ void addingWalkers(){
     return;
   }
 
-  // adding angle
+    // adding angle
     ang+=1;
     if(ang == 360){
       ang = 1;
@@ -96,8 +116,13 @@ void addingWalkers(){
           color(19,221,219)   // fill_walker_
         )
       );
+
+      playSound__();
       
     }
+
+    
+    
   
     //drawing center point
     stroke(252);
