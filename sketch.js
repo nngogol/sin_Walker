@@ -14,6 +14,13 @@ let endPos;
 
 	var fillColor = [180, 255, 255];
 
+
+	var adding_walker_Speed = 20;
+	var adding_walker_SpeedMin = 2;
+	var adding_walker_SpeedMax = 30;
+	var adding_walker_SpeedStep = 1;
+	
+
 	var trailLenght = 18;
 	var trailLenghtMin = 2;
 	var trailLenghtMax = 20;
@@ -43,7 +50,7 @@ var gui;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	gui = createGui()
-	gui.addGlobals('ang', 'trailLenght', 'scaleSize', 'enableRandomWalkerSpawn', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
+	gui.addGlobals('adding_walker_Speed', 'ang', 'trailLenght', 'scaleSize', 'enableRandomWalkerSpawn', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
 }
 
 function draw() {
@@ -90,7 +97,7 @@ function addingWalkers() {
 		}
 	
 		// adding walker
-		if(frameCount% 40 == 1){
+		if(frameCount % adding_walker_Speed == 1){
 			walks.push(new Walker(width/2, height/2, trailLenght, scaleSize, ang, radius, strokeColor))
 		}
 	
