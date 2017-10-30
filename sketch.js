@@ -14,6 +14,11 @@ let endPos;
 
 	var fillColor = [180, 255, 255];
 
+	var trailLenght = 10;
+	var trailLenghtMin = 2;
+	var trailLenghtMax = 20;
+	var trailLenghtStep = 1;
+
 	var ang = 5;
 	var angMin = 1;
 	var angMax = 360;
@@ -33,7 +38,7 @@ var gui;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	gui = createGui()
-	gui.addGlobals('ang', 'enableRandomWalkerSpawn', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
+	gui.addGlobals('ang', 'trailLenght', 'enableRandomWalkerSpawn', 'strokeWidth', 'strokeColor', 'fillColor', 'radius')
 }
 
 function draw() {
@@ -69,7 +74,7 @@ function mouseClicked(){
 	// get proper angle
 	let ang = atan2(endPos.y - startPos.y, endPos.x - startPos.x)
 	// and create Walker with this angle
-	walks.push(new Walker(mouseX, mouseY, ang, radius, strokeColor))
+	walks.push(new Walker(mouseX, mouseY, trailLenght, ang, radius, strokeColor))
 }
 
 function addingWalkers() {
@@ -82,7 +87,7 @@ function addingWalkers() {
 	
 		// adding walker
 		if(frameCount% 40 == 1){
-			walks.push(new Walker(width/2, height/2, ang, radius, strokeColor))
+			walks.push(new Walker(width/2, height/2, trailLenght, ang, radius, strokeColor))
 		}
 	
 		//drawing center point

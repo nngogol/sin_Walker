@@ -1,6 +1,6 @@
 class Walker{
 
-	constructor(x = 200, y = 200,
+	constructor(x = 200, y = 200, trailLenght = 5,
 		angle = 1,
 		radius = 5,
 		stroke_ = color(255,255,255),
@@ -20,7 +20,7 @@ class Walker{
 		this.strokeWidth = strokeWidth
 		this.fill_walker = fill_walker_
 
-		this.trailLenght = 15;
+		this.trailLenght = trailLenght;
 		this.history = [];
 		
 		
@@ -35,7 +35,10 @@ class Walker{
 	move(){
 		// this.r += this.speed
 		// this.theta = sin(frameCount)
-		this.trailAdd()
+		if (random(100)<70) {
+			this.trailAdd()
+			
+		}
 
 		this.frame += 1
 		this.pos.x += this.speed
@@ -71,7 +74,7 @@ class Walker{
 
 		for(let i = this.history.length-1; i >= 0; i--){
 
-				let radius_for_trail = map(i, this.trailLenght, 0, 20, 1)
+				let radius_for_trail = map(i, this.trailLenght, 0, this.radius, 1)
 				ellipse(
 					this.history[i].x,
 					this.history[i].y,
