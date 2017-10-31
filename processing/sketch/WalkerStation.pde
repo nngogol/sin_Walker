@@ -27,7 +27,7 @@ class WalkerStation{
 			soundOfSwawn.play();
 		}
 	}
-
+ 
 	void render(){
     
     // render walkers  
