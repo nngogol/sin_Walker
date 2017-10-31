@@ -24,14 +24,14 @@ class Walker{
 		this(
 			x,			             // x
 			y,      			       // y
-			18,                  // trailLenght
-			2,                   // scaleSize
-			2,                   // trailSpace
+			15,                  // trailLenght
+			4,                   // scaleSize
+			2,                  // trailSpace
 			ang,                 // angle
-			10,                  // radius
-			color(175,191,35),    // stroke_
-      4,                   // strokeWidth
-      color(213,28,54)   // fill_walker_
+			8,                   // radius
+			color(250,1,30),     // stroke_
+			1,                   // strokeWidth
+			color(19,221,219)    // fill_walker_
 		);
 	}
 	
@@ -49,7 +49,7 @@ class Walker{
 
     this.initPos = new PVector(x, y);
 		this.pos = new PVector(0, 0);
-		this.speed = random(2,4)*0.5;
+		this.speed = 2*0.5;
 		this.angle = angle;
 		this.frame = 0;
 		this.stroke_Walker = stroke_;
@@ -90,12 +90,13 @@ class Walker{
 
 	void render(){
 		pushMatrix();
-    translate(this.initPos.x, this.initPos.y);
-    rotate(this.angle);
-    stroke(this.stroke_Walker);
-    fill(this.fill_walker);
-    scale(this.scaleSize);
 
+		translate(this.initPos.x, this.initPos.y);
+		rotate(this.angle);
+
+		// let xx = this.r * cos(this.theta)
+		// let yy = this.r * sin(this.theta)
+		// ellipse(xx, yy, 16, 16);
 		this.renderTrail();
 		this.renderWalker();
 
@@ -103,11 +104,25 @@ class Walker{
 	}
 
 	void renderWalker(){
+		stroke(this.stroke_Walker);
+		strokeWeight(this.strokeWidth);
+		fill(this.fill_walker);
+		// text(this.frame,40,40)
+		pushMatrix();
+		scale(this.scaleSize);
 		ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
+		popMatrix();
 	}
 
 	void renderTrail() {
+		stroke(0,255,0);
+		fill(0,60,60);
+
+		pushMatrix();
+		scale(this.scaleSize);
+
 		for(int i = this.history.size()-1; i >= 0; i--){
+
 				float radius_for_trail = map(i, this.trailLenght, 0, this.radius, 1);
 				ellipse(
 					history.get(i).x,
@@ -115,7 +130,10 @@ class Walker{
 					radius_for_trail,
 					radius_for_trail
 				);
+				
 		}
+		popMatrix();
+		
 	}
 
 	void trailAdd(){
