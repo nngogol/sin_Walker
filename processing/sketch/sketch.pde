@@ -4,6 +4,7 @@ Minim minim;
 AudioPlayer player;
 
 ArrayList<Walker> walks;
+ArrayList<WalkerStation> stations;
 PVector startPos;
 PVector endPos;
 
@@ -18,6 +19,8 @@ void settings() {
 
 void setup(){
   walks = new ArrayList<Walker>();
+  stations = new ArrayList<WalkerStation>();
+  stations.add(new WalkerStation(width/2, height/2));
   minim = new Minim(this);
   player = minim.loadFile("ILLUMINATI_2.mp3");
 }
@@ -25,24 +28,59 @@ void setup(){
 void draw(){
   background(72);
 
-  addingWalkers();
+  ////////////////////// logic for walkers
+  if(walks.size() != 0){
 
-  // deleting old walkers
-  for (int n = walks.size()-1; n > 0 ; n--) {
-    if(walks.get(n).wannaDie())
-      walks.remove(n);
+    // deleting logic
+    for (int n = walks.size()-1; n > 0 ; n--) {
+      // kill him, if he wants to
+      if(walks.get(n).wannaDie()) walks.remove(n);
+    }
+
+    
+    // move and render
+    for (int n = walks.size()-1; n > 0 ; n--) {
+      walks.get(n).move();
+      walks.get(n).render();
+    }
+
+  }
+
+  
+  ////////////////////// logic for stations
+  if(stations.size() != 0){
+    for(WalkerStation s : stations){
+      s.update();
+      s.render();
+    }  
   }
   
-  // moveit moveit
-  for(int i = 0; i < walks.size()-1; i++){
-    walks.get(i).move();
-    walks.get(i).render();
-  }
-    
+  
 }
 
 
 ////////////////////////////////
+
+void keyPressed(){
+
+  switch (key) { //<>//
+    // s for station
+    case 's':
+      stations.add(new WalkerStation(mouseX, mouseY));
+    break;
+    
+    // e for enable\disable
+    case 'e':
+      for(WalkerStation s : stations){
+        s.keyPresed();
+      }
+    break;
+  
+    default: break;
+  }
+  
+}
+
 
 void mousePressed(){
 	// GET start!
@@ -67,7 +105,6 @@ void mouseReleased(){
 	// get proper angle
 	int ang = (int)atan2(endPos.y - startPos.y, endPos.x - startPos.x);
 
-  
 	// and create Walker with this angle
   walks.add(new Walker(
       mouseX,              // x
@@ -82,55 +119,5 @@ void mouseReleased(){
       color(180,255,255)   // fill_walker_
     )
   );
-  
-  playSound__();
 	
-}
-
-void addingWalkers(){
-  if(!enableRandomWalkerSpawn){
-    return;
-  }
-
-    // adding angle
-    ang+=1;
-    if(ang == 360){
-      ang = 1;
-    }
-  
-    // adding walker
-    if(frameCount % adding_walker_Speed == 1){
-      //walks.push(new Walker(width/2, height/2, trailLenght, scaleSize, trailSpace, ang, radius, strokeColor))
-      
-      
-      walks.add(new Walker(
-          width/2,             // x
-          height/2,            // y
-          15,                  // trailLenght
-          5,                   // scaleSize
-          14,                   // trailSpace
-          ang,                 // angle
-          8,                  // radius
-          color(250,1,30),    // stroke_
-          1,                   // strokeWidth
-          color(19,221,219)   // fill_walker_
-        )
-      );
-
-      playSound__();
-      
-    }
-
-    
-    
-  
-    //drawing center point
-    stroke(252);
-    fill(
-      floor(sin(frameCount*.05)      *100+100),
-      floor(cos(frameCount*.04)      *20 +100),
-      floor(sin((frameCount+150)*.04)*80 +130)
-    );
-    
-    ellipse(width/2, height/2, width/32, width/32);
 }

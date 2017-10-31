@@ -3,7 +3,7 @@ class Walker{
   PVector initPos;
   PVector pos;
   float speed;
-  int angle;
+  float angle;
   int frame;
   color stroke_Walker;
   int radius;
@@ -19,14 +19,29 @@ class Walker{
   
   float r;
   float theta;
-  
+	
+	Walker(float x,	float y, float ang){
+		this(
+			x,			             // x
+			y,      			       // y
+			15,                  // trailLenght
+			4,                   // scaleSize
+			2,                  // trailSpace
+			ang,                 // angle
+			8,                   // radius
+			color(250,1,30),     // stroke_
+			1,                   // strokeWidth
+			color(19,221,219)    // fill_walker_
+		);
+	}
+	
   Walker(
-  int x,
-  int y,
+  float x,
+  float y,
   int trailLenght,
   int scaleSize,
   int trailSpace,
-  int angle,
+  float angle,
   int radius,
   color stroke_,
   int strokeWidth,
@@ -77,7 +92,7 @@ class Walker{
 		pushMatrix();
 
 		translate(this.initPos.x, this.initPos.y);
-		rotate(radians(this.angle));
+		rotate(this.angle);
 
 		// let xx = this.r * cos(this.theta)
 		// let yy = this.r * sin(this.theta)
