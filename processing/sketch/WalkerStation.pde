@@ -1,5 +1,5 @@
 class WalkerStation{
-  
+	AudioPlayer soundOfSwawn;
   PVector pos;
 	boolean isEnable;
 	float radius;
@@ -7,13 +7,25 @@ class WalkerStation{
   int adding_walker_Speed = 60;
   float frame = 0;
   
-  WalkerStation(int x, int y){
+  WalkerStation(int x, int y, AudioPlayer soundOfSwawn){
 		
 		this.pos = new PVector(x, y);
 		this.isEnable = true;
 		this.walkers = new ArrayList<Walker>();
+		this.soundOfSwawn = soundOfSwawn;
 
 		this.radius = 16;
+	}
+	
+	void playSSound(){
+		if(!soundOfSwawn.isPlaying())
+		{
+			soundOfSwawn.play();
+		}else{
+			soundOfSwawn.pause();
+			soundOfSwawn.rewind();
+			soundOfSwawn.play();
+		}
 	}
 
 	void render(){
@@ -21,7 +33,7 @@ class WalkerStation{
     // render walkers  
     if(isEnable){
       for(Walker w: walkers){
-        w.render();    
+				w.render();    
       }
     }
   
@@ -56,7 +68,8 @@ class WalkerStation{
                 this.pos.x,
                 this.pos.y,
                 frame
-              ));
+							));
+							playSSound()
             }
     }
     //////////////// thesame logic as in draw() for walkers

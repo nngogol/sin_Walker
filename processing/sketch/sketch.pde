@@ -20,9 +20,9 @@ void settings() {
 void setup(){
   walks = new ArrayList<Walker>();
   stations = new ArrayList<WalkerStation>();
-  stations.add(new WalkerStation(width/2, height/2));
+  stations.add(new WalkerStation(width/2, height/2, player));
   minim = new Minim(this);
-  player = minim.loadFile("ILLUMINATI_2.mp3");
+  player = minim.loadFile("let them be infect.mp3");
 }
 
 void draw(){
@@ -66,7 +66,7 @@ void keyPressed(){
   switch (key) { //<>//
     // s for station
     case 's':
-      stations.add(new WalkerStation(mouseX, mouseY));
+      stations.add(new WalkerStation(mouseX, mouseY, player));
     break;
     
     // e for enable\disable
@@ -119,5 +119,7 @@ void mouseReleased(){
       color(180,255,255)   // fill_walker_
     )
   );
+  
+  playSound__()
 	
 }
