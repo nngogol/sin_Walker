@@ -69,7 +69,7 @@ class WalkerStation{
                 this.pos.y,
                 frame
 							));
-							playSSound()
+							playSSound();
             }
     }
     //////////////// thesame logic as in draw() for walkers

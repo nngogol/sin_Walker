@@ -120,6 +120,6 @@ void mouseReleased(){
     )
   );
   
-  playSound__()
+  playSound__();
 	
 }

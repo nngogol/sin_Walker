@@ -68,6 +68,11 @@ function draw() {
 			walks.splice(n,1)
 		
 	}
+
+	if (mouseIsPressed) {
+		ellipse(startPos.x, startPos.y, 5, 5)
+		line(startPos.x, startPos.y, mouseX, mouseY)
+	}
 	
 	// moveit moveit
 	walks.map(x => x.move())
@@ -75,15 +80,17 @@ function draw() {
 		
 }
 
-
 ////////////////////////////////
 
 function mousePressed(){
 	// GET start!
 	startPos = createVector(mouseX, mouseY)
 }
+function mouseRealesed(){
+}
 
 function mouseClicked(){
+
 	// GET end!
 	endPos = createVector(mouseX, mouseY)
 
